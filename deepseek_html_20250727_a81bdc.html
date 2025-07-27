@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Keluargaku Tersayang</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f5f0;
+            color: #5a4a42;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f0e6dd;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease-out;
+        }
+        
+        .loading-text {
+            font-size: 1.5rem;
+            color: #8c6a56;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(140, 106, 86, 0.2);
+            border-radius: 50%;
+            border-top-color: #8c6a56;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s, transform 1s;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #f0e6dd;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 65%, rgba(255,255,255,0.3) 100%);
+            z-index: 0;
+        }
+        
+        h1 {
+            font-weight: 500;
+            font-size: 2rem;
+            color: #8c6a56;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: #a38b7e;
+            position: relative;
+        }
+        
+        .letter {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .letter::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);
+        }
+        
+        .letter-content {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 15px;
+        }
+        
+        .letter-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .letter-content::-webkit-scrollbar-thumb {
+            background-color: rgba(140, 106, 86, 0.5);
+            border-radius: 10px;
+        }
+        
+        .letter p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+        
+        .signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 30px;
+            color: #8c6a56;
+            position: relative;
+        }
+        
+        .music-section {
+            background-color: #f8f3ee;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        
+        .music-title {
+            text-align: center;
+            color: #8c6a56;
+            margin-bottom: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .music-title i {
+            margin-right: 10px;
+        }
+        
+        .spotify-player {
+            margin: 20px 0;
+            transition: transform 0.3s;
+        }
+        
+        .spotify-player:hover {
+            transform: scale(1.02);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .music-btn {
+            background-color: #8c6a56;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .music-btn i {
+            margin-right: 8px;
+        }
+        
+        .music-btn:hover {
+            background-color: #a38b7e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #f0e6dd;
+            border-radius: 20px 20px 0 0;
+            font-size: 0.95rem;
+            color: #8c6a56;
+            position: relative;
+        }
+        
+        .heart {
+            color: #e88a8a;
+            font-size: 1.2rem;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart-particle {
+            position: absolute;
+            color: #e88a8a;
+            font-size: 1rem;
+            opacity: 0;
+            animation: float-up 4s linear forwards;
+        }
+        
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .letter {
+                padding: 20px;
+            }
+            
+            .letter p {
+                font-size: 1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .music-btn {
+                margin: 5px 0;
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">Memuat pesan cinta untuk keluarga...</div>
+        <div class="loader"></div>
+    </div>
+    
+    <div class="container" id="mainContent">
+        <header>
+            <h1>Untuk Ayah, Ibu, dan Adek...</h1>
+            <p class="subtitle">Dari Vivi, yang sayang banget sama kalian</p>
+        </header>
+        
+        <div class="letter">
+            <div class="letter-content" id="letterContent">
+                <p>Ayah, Ibu, Adek...</p>
+                
+                <p>Terima kasih banyak ya, udah selalu ada untuk Vivi. Maaf ya, karena Vivi masih belum bisa membahagiakan kalian sepenuhnya. Vivi tahu, selama ini Vivi masih sering ngerepotin, masih banyak kurangnya. Tapi sungguh, Vivi pengen banget suatu hari bisa bikin Ayah dan Ibu bangga.</p>
+                
+                <p>Sekarang Vivi lagi berproses, lagi belajar, lagi jatuh bangun. Doain Vivi ya, semoga jalannya dimudahkan, semoga langkah Vivi diberkahi dan suatu hari bisa bilang: <strong>"Ayah, Ibu... Vivi sudah sampai."</strong></p>
+                
+                <p>Maaf kalau butuh waktu lama. Maaf karena belum bisa jadi seperti yang diharapkan. Tapi Vivi janji, akan terus berusaha semaksimal mungkin.</p>
+                
+                <p>Doa terbaik juga untuk Ayah, Ibu, dan Adek. Semoga selalu sehat, panjang umur, dan bahagia dunia akhirat. Semoga Vivi juga dipertemukan dengan jodoh yang baik, yang sayang sama Vivi, yang juga sayang sama keluarga kita.</p>
+                
+                <div class="signature">
+                    <p>Love you always.</p>
+                    <p>— Vivi <span class="heart">🤍</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="music-section">
+            <div class="controls">
+                <button class="music-btn" id="playBtn"><i class="fas fa-play"></i> Putar Lagu</button>
+                <button class="music-btn" id="heartBtn"><i class="fas fa-heart"></i> Kirim Cinta</button>
+            </div>
+            
+            <h3 class="music-title"><i class="fas fa-music"></i> Lagu untuk Keluarga Tersayang</h3>
+            <div class="spotify-player">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0hcshcvKuOODyfuvkfoW9S?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" id="spotifyPlayer"></iframe>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Terima kasih sudah mampir ke laman kecil ini.</p>
+            <p>Doa Vivi selalu menyertai Ayah, Ibu, dan Adek.</p>
+            <p>Semoga Vivi bisa membalas semua kebaikan kalian, suatu saat nanti.</p>
+        </footer>
+    </div>
+    
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <script>
+        // Loading screen effect
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                document.getElementById('mainContent').style.opacity = '1';
+                document.getElementById('mainContent').style.transform = 'translateY(0)';
+                
+                setTimeout(function() {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 1000);
+            }, 2000);
+        });
+        
+        // Heart animation effect
+        document.getElementById('heartBtn').addEventListener('click', function() {
+            createHearts();
+            
+            // Show temporary message
+            const originalText = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-heart"></i> Cinta Terkirim!';
+            this.style.backgroundColor = '#e88a8a';
+            
+            setTimeout(() => {
+                this.innerHTML = originalText;
+                this.style.backgroundColor = '#8c6a56';
+            }, 1500);
+        });
+        
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            const colors = ['#e88a8a', '#ffb6b6', '#ffd3d3', '#ff9e9e'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(heart);
+                
+                // Remove heart after animation
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }
+        }
+        
+        // Play button functionality
+        document.getElementById('playBtn').addEventListener('click', function() {
+            const player = document.getElementById('spotifyPlayer');
+            const iframeSrc = player.src;
+            
+            // This will restart the iframe to play the music
+            player.src = iframeSrc;
+            
+            // Change button appearance
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-play')) {
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+                this.innerHTML = '<i class="fas fa-pause"></i> Jeda Lagu';
+            } else {
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+                this.innerHTML = '<i class="fas fa-play"></i> Putar Lagu';
+            }
+        });
+        
+        // Auto-scroll letter for better reading experience
+        setTimeout(() => {
+            const letterContent = document.getElementById('letterContent');
+            let scrollPosition = 0;
+            const scrollInterval = setInterval(() => {
+                if (scrollPosition < letterContent.scrollHeight - letterContent.clientHeight) {
+                    scrollPosition += 1;
+                    letterContent.scrollTop = scrollPosition;
+                } else {
+                    clearInterval(scrollInterval);
+                }
+            }, 50);
+        }, 2500);
+    </script>
+</body>
+</html>
